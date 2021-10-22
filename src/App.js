@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import './App.css';
-
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [values,setValues]=useState("");
+  const [result,setResult]=useState([]);
+  const HandleChange=(e)=>{
+    setValues(e.target.value);
+  }
+  const addItem=(e)=>{
+    e.preventDefault();
+    setResult((oldData)=>{
+      return ([...oldData,values]);
+    })
+   setValues("");
+  }
+  return(
+    <>
+    <div className="main_div">
+      <div className="center_div">
+      <br/>
+      <h1>ToDo List</h1>
+      <br/>
+      <input type="text" placeholder="add Items" value={values} onChange={HandleChange}/>
+      <button onClick={addItem}><AddBoxIcon></AddBoxIcon></button>
+      <ol>
+        {
+          result.map(res=>{
+            return(<> 
+            <li>{res}</li>
+            
+            </>)
+          })
+        }
+      </ol>
+      </div>
     </div>
-  );
+    </>
+  )
 }
 
 export default App;
