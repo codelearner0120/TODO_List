@@ -2,7 +2,8 @@ import { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import './App.css';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import ShowToDoList from './ShowToDoList';
 function App() {
   const [values,setValues]=useState("");
   const [result,setResult]=useState([]);
@@ -11,8 +12,15 @@ function App() {
   }
   const addItem=(e)=>{
     e.preventDefault();
+    if(values===""){
+      alert("please add a task");
+      return;
+    }
     setResult((oldData)=>{
-      return ([...oldData,values]);
+      return ([...oldData,{
+        done:false,
+        value:values
+      }]);
     })
    setValues("");
   }
@@ -24,17 +32,8 @@ function App() {
       <h1>ToDo List</h1>
       <br/>
       <input type="text" placeholder="add Items" value={values} onChange={HandleChange}/>
-      <button onClick={addItem}><AddBoxIcon></AddBoxIcon></button>
-      <ol>
-        {
-          result.map(res=>{
-            return(<> 
-            <li>{res}</li>
-            
-            </>)
-          })
-        }
-      </ol>
+      <button onClick={addItem}><AddTaskIcon size="small" /></button>
+      <ShowToDoList data={result} setData={setResult} />
       </div>
     </div>
     </>
