@@ -8,7 +8,6 @@ function ShowToDoList(props) {
         let newData=data.filter((ele,index)=>{
             return index!==Index;
         })
-        console.log(newData)
         setData(newData)
     }
     return (
